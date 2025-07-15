@@ -50,9 +50,9 @@ export function parseObject(
   const additionalProperties =
     objectSchema.additionalProperties !== undefined
       ? parseSchema(objectSchema.additionalProperties, {
-          ...refs,
-          path: [...refs.path, "additionalProperties"],
-        })
+        ...refs,
+        path: [...refs.path, "additionalProperties"],
+      })
       : undefined;
 
   let patternProperties: string | undefined = undefined;
@@ -89,16 +89,16 @@ export function parseObject(
       }
     } else {
       if (additionalProperties) {
-        patternProperties += `z.record(z.union([${[
+        patternProperties += `z.record(z.string(), z.union([${[
           ...Object.values(parsedPatternProperties),
           additionalProperties,
         ].join(", ")}]))`;
       } else if (Object.keys(parsedPatternProperties).length > 1) {
-        patternProperties += `z.record(z.union([${Object.values(
+        patternProperties += `z.record(z.string(), z.union([${Object.values(
           parsedPatternProperties,
         ).join(", ")}]))`;
       } else {
-        patternProperties += `z.record(${Object.values(
+        patternProperties += `z.record(z.string(), ${Object.values(
           parsedPatternProperties,
         )})`;
       }
@@ -178,8 +178,8 @@ export function parseObject(
     : patternProperties
       ? patternProperties
       : additionalProperties
-        ? `z.record(${additionalProperties})`
-        : "z.record(z.any())";
+        ? `z.record(z.string(), ${additionalProperties})`
+        : "z.record(z.string(), z.any())";
 
   if (its.an.anyOf(objectSchema)) {
     output += `.and(${parseAnyOf(
@@ -187,8 +187,8 @@ export function parseObject(
         ...objectSchema,
         anyOf: objectSchema.anyOf.map((x) =>
           typeof x === "object" &&
-          !x.type &&
-          (x.properties || x.additionalProperties || x.patternProperties)
+            !x.type &&
+            (x.properties || x.additionalProperties || x.patternProperties)
             ? { ...x, type: "object" }
             : x,
         ) as any,
@@ -203,8 +203,8 @@ export function parseObject(
         ...objectSchema,
         oneOf: objectSchema.oneOf.map((x) =>
           typeof x === "object" &&
-          !x.type &&
-          (x.properties || x.additionalProperties || x.patternProperties)
+            !x.type &&
+            (x.properties || x.additionalProperties || x.patternProperties)
             ? { ...x, type: "object" }
             : x,
         ) as any,
@@ -219,8 +219,8 @@ export function parseObject(
         ...objectSchema,
         allOf: objectSchema.allOf.map((x) =>
           typeof x === "object" &&
-          !x.type &&
-          (x.properties || x.additionalProperties || x.patternProperties)
+            !x.type &&
+            (x.properties || x.additionalProperties || x.patternProperties)
             ? { ...x, type: "object" }
             : x,
         ) as any,

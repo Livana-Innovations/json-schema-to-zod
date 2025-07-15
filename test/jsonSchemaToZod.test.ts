@@ -23,7 +23,7 @@ suite("jsonSchemaToZod", (test) => {
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string()
 `,
@@ -51,7 +51,7 @@ export default z.string()
         },
         { name: "mySchema", module: "esm", type: true },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export const mySchema = z.string()
 export type MySchema = z.infer<typeof mySchema>
@@ -67,7 +67,7 @@ export type MySchema = z.infer<typeof mySchema>
         },
         { name: "mySchema", module: "esm", type: "MyType" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export const mySchema = z.string()
 export type MyType = z.infer<typeof mySchema>
@@ -111,7 +111,7 @@ export type MyType = z.infer<typeof mySchema>
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string().default("foo")
 `,
@@ -127,7 +127,7 @@ export default z.string().default("foo")
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string().default("")
 `,
@@ -143,7 +143,7 @@ export default z.string().default("")
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.literal("")
 `,
@@ -159,7 +159,7 @@ export default z.literal("")
         },
         { module: "esm", withoutDefaults: true },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string()
 `,
@@ -175,7 +175,7 @@ export default z.string()
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string().describe("foo")
 `,
@@ -191,7 +191,7 @@ export default z.string().describe("foo")
         },
         { module: "esm", withoutDescribes: true },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.string()
 `,
@@ -224,7 +224,7 @@ export default z.string()
           }
         }
       }, { module: "esm", withJsdocs: true }),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 /**Description for schema*/
 export default z.object({ 
@@ -258,7 +258,7 @@ export default z.object({
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.object({ "prop": z.string().default("def") })
 `,
@@ -274,7 +274,7 @@ export default z.object({ "prop": z.string().default("def") })
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.boolean().default(false)
 `,
@@ -290,7 +290,7 @@ export default z.boolean().default(false)
         },
         { module: "esm" },
       ),
-      `import { z } from "zod"
+      `import { z } from "zod/v4"
 
 export default z.null()
 `,
