@@ -38,7 +38,7 @@ ${result}`;
 `;
 
     if (!noImport) {
-      result = `import { z } from "zod"
+      result = `import { z } from "zod/v4"
 
 ${result}`;
     }
