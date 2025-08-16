@@ -5,30 +5,66 @@ import { parseSchema } from "./parseSchema.js";
 export const parseString = (schema: JsonSchemaObject & { type: "string" }) => {
   let r = "z.string()";
 
-  r += withMessage(schema, "format", ({ value }) => {
+  r = withMessage(schema, "format", ({ value }) => {
     switch (value) {
       case "email":
-        return [".email(", ")"];
+        return ["z.email(", ")"];
       case "ip":
-        return [".ip(", ")"];
+        return ["z.union([z.ipv4(), z.ipv6()", "])"];
       case "ipv4":
-        return ['.ip({ version: "v4"', ", message: ", " })"];
+        return ['z.ipv4(', ")"];
       case "ipv6":
-        return ['.ip({ version: "v6"', ", message: ", " })"];
+        return ['z.ipv6(',")"];
+      case "cidr":
+        return ["z.union([z.cidrv4(), z.cidrv6()", "])"];
+      case "cidrv4":
+        return ['z.cidrv4(', ")"];
+      case "cidrv6":
+        return ['z.cidrv6(',")"];
       case "uri":
-        return [".url(", ")"];
+        return ["z.url(", ")"];
       case "uuid":
-        return [".uuid(", ")"];
+        return ["z.uuid(", ")"];
+      case "guid":
+        return ["z.guid(", ")"];
+      case "uuidv4":
+        return ["z.uuidv4(", ")"];
+      case "uuidv6":
+        return ["z.uuidv6(", ")"];
+      case "uuidv7":
+        return ["z.uuidv7(", ")"];
+      case "hostname":
+        return ["z.hostname(", ")"];
+      case "emoji":
+        return ["z.emoji(", ")"];
+      case "base64":
+        return ["z.base64(", ")"];
+      case "base64url":
+        return ["z.base64url(", ")"];
+      case "jwt":
+        return ["z.jwt(", ")"];
+      case "base64url":
+        return ["z.base64url(", ")"];
+      case "nanoid":
+        return ["z.nanoid(", ")"];
+      case "cuid":
+        return ["z.cuid(", ")"];
+      case "cuid2":
+        return ["z.cuid2(", ")"];
+      case "ulid":
+        return ["z.ulid(", ")"];
       case "date-time":
-        return [".datetime({ offset: true", ", message: ", " })"];
+        return ["z.iso.datetime({ offset: true", " })"];
       case "time":
-        return [".time(", ")"];
+        return ["z.iso.time(", ")"];
       case "date":
-        return [".date(", ")"];
-      case "binary":
-        return [".base64(", ")"];
+        return ["z.iso.date(", ")"];
       case "duration":
-        return [".duration(", ")"];
+        return ["z.iso.duration(", ")"];
+      case "binary":
+        return ["z.base64(", ")"];
+      default:
+        return ["z.string(", ")"];
     }
   });
 
