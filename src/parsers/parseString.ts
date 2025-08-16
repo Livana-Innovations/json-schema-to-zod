@@ -66,7 +66,7 @@ export const parseString = (schema: JsonSchemaObject & { type: "string" }) => {
       default:
         return ["z.string(", ")"];
     }
-  });
+  }) || r;
 
   r += withMessage(schema, "pattern", ({ json }) => [
     `.regex(new RegExp(${json})`,
